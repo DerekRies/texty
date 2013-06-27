@@ -34,9 +34,3 @@ body {
 
 /* Addable Classes */
 
-.something {
-    -webkit-transform: scale3d(0.1, 0.1, 1);
-    -firefox-transform: scale3d(0.1, 0.1, 1);
-    -os-transform: scale3d(0.1, 0.1, 1);
-    transform: scale3d(0.1, 0.1, 1);
-}

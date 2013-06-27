@@ -7,7 +7,7 @@ define(['url'], function (url) {
   }
 
   function linear (n) {
-    return Math.max( n / 50, 1);
+    return Math.max( n * 0.013, 1);
   }
 
   function logit (n) {
@@ -29,11 +29,11 @@ define(['url'], function (url) {
   }
 
   function cubic (n) {
-
+    return Math.max( Math.pow(n* .013, 2) , 1);
   }
 
   function exponential (n) {
-
+    return Math.max( Math.pow(n* .013,n* .013) , 1);
   }
 
   function styleElement () {
@@ -48,16 +48,29 @@ define(['url'], function (url) {
     }
   }
 
+  function convertPlusesToSpaces (text) {
+    return text.replace(/\+/g, ' ');
+  }
+
   console.log(url);
 
   var texty = $('#texty-block');
   var header = texty.find('h1');
   var sizeModifier = 1;
   header.html(url.text);
-  sizeModifier = calculateSizeModifier(url.text, quadratic);
+  sizeModifier = calculateSizeModifier(url.text, linear);
   styleElement();
   fitText();
-  header.css({'margin-top': header.height() / -2});
+  console.log(url['google-font']);
+  header.css({
+    'margin-top': header.height() / -2
+  });
+
+  if (url['google-font'] !== false) {
+    header.css({
+      'font-family': convertPlusesToSpaces(url['google-font'])
+    });
+  }
 
   return {};
 });

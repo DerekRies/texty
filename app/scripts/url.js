@@ -58,6 +58,10 @@ define(function () {
       else if (key in defaultParams) {
         defaultParams[key] = value;
       }
+
+      if (key === 'google-font') {
+        loadGoogleFont(value);
+      }
       // console.log(key, value);
     }
   }
@@ -69,6 +73,21 @@ define(function () {
         defaultParams.cssAttrs[convertCamelCaseToDashes(style)] = null;
       }
     }
+  }
+
+  function loadGoogleFont (googleFont) {
+
+    window.WebFontConfig = {
+      google: { families: [ googleFont ] }
+    };
+
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
   }
 
   init();
