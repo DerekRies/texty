@@ -17,10 +17,29 @@ define(function () {
     class: ''
   };
 
+  defaultParams['google-font'] = false;
+
+  var escapeMap = {
+    '&': '&amp;',
+    '"': '&quot;',
+    "'": '&#39;',
+    "<": '&lt;',
+    ">": '&gt;'
+  };
+
   function convertCamelCaseToDashes (camelCase) {
     return camelCase.replace(/[A-Z]/mg, function (match) {
       return '-' + match.toLowerCase()
     });
+  }
+
+  function lookupEscape (ch) {
+    return escapeMap[ch];
+  }
+
+  function sanitize (unsafeText) {
+    // unsafeText = escape(unsafeText);
+    return unsafeText.replace(/[&"'<>]/g, lookupEscape);
   }
 
   function init () {
@@ -28,7 +47,10 @@ define(function () {
     for (var i = 0, l = urlParams.length ; i < l ; i++) {
       pair = urlParams[i].split('='),
       key = pair[0].toLowerCase(),
-      value = decodeURIComponent(pair[1]);
+      value = pair[1];
+      value = sanitize(decodeURIComponent(value));
+
+      console.log(value);
 
       if (key in defaultParams.cssAttrs) {
         defaultParams.cssAttrs[key] = value;

@@ -28,6 +28,8 @@ body {
     width: 100%;
     margin: 0;
     top: 50%;
+    word-wrap: break-word;
+    text-wrap: normal;
 }
 
 /* Addable Classes */

@@ -15,7 +15,7 @@ define(['url'], function (url) {
   }
 
   function quadratic (n) {
-    return Math.max( n * n * .00015, 1);
+    return Math.max( n * n * .00028, 1);
   }
 
   function logistic (n) {
@@ -54,7 +54,7 @@ define(['url'], function (url) {
   var header = texty.find('h1');
   var sizeModifier = 1;
   header.html(url.text);
-  sizeModifier = calculateSizeModifier(url.text, linear);
+  sizeModifier = calculateSizeModifier(url.text, quadratic);
   styleElement();
   fitText();
   header.css({'margin-top': header.height() / -2});
